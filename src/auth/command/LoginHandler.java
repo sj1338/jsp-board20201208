@@ -6,9 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.service.LoginFailException;
-import member.service.LoginService;
-import member.service.User;
+import auth.service.LoginFailException;
+import auth.service.LoginService;
+import auth.service.User;
 import mvc.command.CommandHandler;
 
 public class LoginHandler implements CommandHandler {
@@ -17,29 +17,32 @@ public class LoginHandler implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		if(req.getMethod().equalsIgnoreCase("GET")) {
+		if (req.getMethod().equalsIgnoreCase("get")) {
 			return processForm(req, res);
-		} else if (req.getMethod().equalsIgnoreCase("POST")){
-			return process(req, res);
+		} else if (req.getMethod().equalsIgnoreCase("post")) {
+			return processSubmit(req, res);
 		} else {
 			res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 			return null;
 		}
+		
 	}
-	
-	private String processForm(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String id = trim(req.getParameter("id"));
 		String password = trim(req.getParameter("password"));
 		
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		
-		if(id == null || id.isEmpty())
-			errors.put("id", Boolean.TRUE);
-		if(password == null || password.isEmpty())
-			errors.put("password", Boolean.TRUE);
+		if (id == null || id.isEmpty()) {
+			errors.put("id", true);
+		}
+		if (password == null || password.isEmpty()) {
+			errors.put("password", true);
+		}
 		
-		if(!errors.isEmpty()) {
+		if (!errors.isEmpty()) {
 			return FORM_VIEW;
 		}
 		
@@ -49,12 +52,18 @@ public class LoginHandler implements CommandHandler {
 			res.sendRedirect(req.getContextPath() + "/index.jsp");
 			return null;
 		} catch (LoginFailException e) {
-			errors.put("idOrPwNotMatch", Boolean.TRUE);
+			errors.put("idOrPwNotMatch", true);
 			return FORM_VIEW;
 		}
+		
 	}
-	
+
 	private String trim(String str) {
 		return str == null ? null : str.trim();
 	}
+
+	private String processForm(HttpServletRequest req, HttpServletResponse res) {
+		return FORM_VIEW;
+	}
+	
 }

@@ -12,16 +12,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test="${! empty authUser }">
-	${authUser.name }님, 안녕하세요.
-	<a href="logout.do">[로그아웃하기]</a>
-	<a href="changePwd.do">[암호변경하기]</a>
-	<a href="removeMember.do">[회원 탈퇴]</a>
-</c:if>
-<c:if test="${empty authUser }">
-	<a href="join.do">[회원가입하기]</a>
-	<a href="login.do">[로그인하기]</a>
-</c:if>
-<br />
+<div class="container">
+	<h1>회원 탈퇴</h1>
+	<form action="removeMember.do" method="post">
+		암호 : <input type="password" name = "password" id="" />
+		<br />
+		<input type="submit" value="탈퇴" />
+	</form>
+</div>
 </body>
 </html>

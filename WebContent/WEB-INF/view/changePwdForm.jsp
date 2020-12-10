@@ -12,16 +12,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test="${! empty authUser }">
-	${authUser.name }님, 안녕하세요.
-	<a href="logout.do">[로그아웃하기]</a>
-	<a href="changePwd.do">[암호변경하기]</a>
-	<a href="removeMember.do">[회원 탈퇴]</a>
-</c:if>
-<c:if test="${empty authUser }">
-	<a href="join.do">[회원가입하기]</a>
-	<a href="login.do">[로그인하기]</a>
-</c:if>
-<br />
+<form action="changePwd.do" method="post">
+<p>
+	현재 암호 : <br /><input type="password" name="curPwd"/>
+	<c:if test="${errors.curPwd }">현재 암호를 입력하세요.</c:if>
+	<c:if test="${errors.badCurPwd }">현재 암호가 일치하지 않습니다.</c:if>
+</p>
+<p>
+	새 암호 : <br /><input type="password" name="newPwd"/>
+	<c:if test="${errors.newPwd }">새 암호를 입력하세요.</c:if>
+</p>
+<input type="submit" value="암호 변경"/>
+</form>
 </body>
 </html>

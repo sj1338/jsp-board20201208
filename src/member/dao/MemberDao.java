@@ -9,6 +9,30 @@ import jdbc.JdbcUtil;
 import member.model.Member;
 
 public class MemberDao {
+	
+	public void delete(Connection conn, String id) throws SQLException {
+		// 삭제 쿼리 실행
+		
+		String sql = "DELETE member WHERE memberid=?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, id);
+			
+			pstmt.executeUpdate();
+		}
+	}
+		
+	public void update(Connection conn, Member member) throws SQLException {
+		String sql = "UPDATE member SET name=?, password=? WHERE memberid=?";
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getPassword());
+			pstmt.setString(3, member.getId());
+			
+			pstmt.executeUpdate();
+		}
+	}
+	
 	public Member selectById(Connection con, String id) throws SQLException {
 		
 		Member member = null;
@@ -33,7 +57,7 @@ public class MemberDao {
 				member.setPassword(rs.getString(3));
 				member.setRegDate(rs.getTimestamp(4));
 			}
-			
+			System.out.println(member);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -62,4 +86,5 @@ public class MemberDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	
 }
