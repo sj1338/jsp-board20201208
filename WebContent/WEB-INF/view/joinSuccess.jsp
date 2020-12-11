@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-<h1>${param.name }님, 회원가입 가입 성공</h1>
+<h1>${param.name }님, 회원 가입에 성공했습니다.</h1>
 </div>
 </body>
 </html>

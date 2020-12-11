@@ -13,21 +13,12 @@
 </head>
 <body>
 <div class="container">
-  <h1>회원 탈퇴</h1>
-  <form action="removeMember.do" method="post">
-  
-    암호 : <input type="password" name="password" id="" />
-    <c:if test="${errors.password }">패스워드를 입력해주세요.</c:if>
-    <c:if test="${errors.invalidPassword }">패스워드가 일치하지 않습니다.</c:if>
-    <br />
-    <input type="submit" value="탈퇴" />
-  </form>
+  <h1>게시글을 등록했습니다.</h1>
+  <a href="${root }/article/list.do">[게시글목록보기]</a>
+  <a href="${root }/article/read.do?no=${newArticleNo}">[게시글내용보기]</a>
 </div>
 </body>
 </html>
-
-
-
 
 
 

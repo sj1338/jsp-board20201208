@@ -12,6 +12,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-암호를 변경했습니다.
+<div class="container">
+  <h1>암호를 변경했습니다.</h1>
+</div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import auth.service.User;
 import member.service.InvalidPasswordException;
@@ -37,6 +38,8 @@ public class RemoveMemberHandler implements CommandHandler {
 		User user = (User) req.getSession().getAttribute("authUser");
 		// 세션에서 user 객체 얻기(authUser attribute)
 		
+		HttpSession session = req.getSession(); // invalid 쓸수있게 사전작업 
+		
 		// password 파라미터를 얻기
 		
 		String password = req.getParameter("password");
@@ -62,8 +65,13 @@ public class RemoveMemberHandler implements CommandHandler {
 		// 서비스에게 일 시키기
 		try {
 			removeMemberSvc.removeMember(user, password);
-			// 세션을 invalide()
+			
+			// 세션을 invalide() // 일을 성공시키기 전에 해야하니까 return 전에 써야함
+			session.invalidate();
 			return "removeMemberSuccess";
+	
+		
+			
 		} catch (InvalidPasswordException e) {
 			e.printStackTrace();
 			errors.put("password", true);
