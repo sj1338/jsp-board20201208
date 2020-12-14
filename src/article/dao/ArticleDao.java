@@ -14,15 +14,58 @@ import article.model.Writer;
 import jdbc.JdbcUtil;
 
 public class ArticleDao {
+
+	public int update(Connection conn, int no, String title) throws SQLException {
+		String sql = "UPDATE article SET title=?," + "moddate=SYSDATE WHERE article_no=?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, title);
+			pstmt.setInt(2, no);
+		}
+		return no;
+	}
+
+	public Article selectById(Connection conn, int no) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * " + "FROM article " + "WHERE article_no=?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+
+			Article article = null;
+
+			if (rs.next()) {
+				article = convertArticle(rs);
+			}
+			return article;
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+
+	}
+
+	public void increaseReadCount(Connection conn, int no) throws SQLException {
+		String sql = "UPDATE article " + "SET read_cnt=read_cnt+1 " + "WHERE article_no=?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		}
+	}
+
 	public List<Article> select(Connection conn, int pageNum, int size) throws SQLException {
 
 		/*
-		 * String sql = "SELECT * FROM article ORDER BY article_no DESC LIMIT ?, ?"; //
-		 * 시작 row_num(zerobase), 갯수 // 예 : 두번째 페이지는 10, 10
+		 * String sql = "SELECT * " + "FROM article " + "ORDER BY articl_no DESC " +
+		 * "LIMIT ?, ?"; // 시작 row_num(zerobase), 갯수
 		 */
-		String sql = "SELECT rn, article_no, writer_id, writer_name, title, regdate, moddate, read_cnt FROM "
-				+ "(SELECT article_no, writer_id, writer_name, title, regdate, moddate, read_cnt, ROW_NUMBER() OVER (ORDER BY article_no DESC) rn FROM article) "
-				+ "WHERE rn BETWEEN ? AND ?";
+		String sql = "SELECT " + "rn, " + "article_no, " + "writer_id, " + "writer_name, " + "title, " + "regdate, "
+				+ "moddate, " + "read_cnt " + "FROM (" + "	SELECT article_no, " + " 		   writer_id, "
+				+ "        writer_name, " + "        title, " + "        regdate, " + "        moddate, "
+				+ "        read_cnt, " + "        ROW_NUMBER() " + "          OVER ( " + "            ORDER BY "
+				+ "            article_no " + "            DESC) " + "        rn " + "  FROM article " + ") WHERE rn "
+				+ "    BETWEEN ? AND ?";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -37,26 +80,18 @@ public class ArticleDao {
 			while (rs.next()) {
 				result.add(convertArticle(rs));
 			}
+
 			return result;
 		} finally {
 			JdbcUtil.close(rs, pstmt);
 		}
 	}
-	
+
 	private Article convertArticle(ResultSet rs) throws SQLException {
-		return new Article(rs.getInt("article_no"),
-				new Writer(
-						rs.getString("Writer_id"),
-						rs.getString("Writer_name")
-						),
-				rs.getString("title"),
-				rs.getTimestamp("regdate"),
-				rs.getTimestamp("moddate"),
-				rs.getInt("read_cnt")
-				);
+		return new Article(rs.getInt("article_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
+				rs.getString("title"), rs.getTimestamp("regdate"), rs.getTimestamp("moddate"), rs.getInt("read_cnt"));
 	}
-	
-	
+
 	public int selectCount(Connection conn) throws SQLException {
 		String sql = "SELECT COUNT(*) FROM article";
 
