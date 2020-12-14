@@ -25,6 +25,11 @@ public class ModifyArticleHandler implements CommandHandler {
 			}
 		}
 		
+		private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 		private String processForm(HttpServletRequest req, HttpServletResponse res)
 		throws IOException {
 			try {
