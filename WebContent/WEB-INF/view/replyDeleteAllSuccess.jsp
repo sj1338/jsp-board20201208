@@ -12,22 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
-<h1>게시글 쓰기</h1>
-<form action="write.do" method="post">
-  <p>
-    제목 : <br />
-    <input type="text" name="title" value="${param.title }" />
-    <c:if test="${errors.title }">제목을 입력하세요.</c:if>
-  </p>
-  
-  <p>
-    내용 : <br />
-    <textarea name="content" id="" cols="30" rows="5">${param.content }</textarea>
-  </p>
-  <input type="submit" value="새 글 등록" />
-  <a href="${root }/article/list.do">[게시글목록보기]</a>
-</form>
-</div>
+	<img src="${root }/delete.jpeg" alt="사진안보임" style="width:250px;height:180px">
+	<a href="${root }/article/read.do?no=${articleNumber }&pageNo=${articlePageNumber}">글 보기</a>
 </body>
 </html>

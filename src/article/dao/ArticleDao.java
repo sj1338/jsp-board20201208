@@ -206,6 +206,17 @@ public class ArticleDao {
 			JdbcUtil.close(rs, pstmt);
 		}
 	}
+
+
+	public void delete(Connection con, int no) throws SQLException {
+		String sql = "DELETE article WHERE article_no=?";
+		
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, no);
+			
+			pstmt.executeUpdate();
+		}
+	}
 }
 
 

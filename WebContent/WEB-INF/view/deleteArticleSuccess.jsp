@@ -13,21 +13,9 @@
 </head>
 <body>
 <div class="container">
-<h1>게시글 쓰기</h1>
-<form action="write.do" method="post">
-  <p>
-    제목 : <br />
-    <input type="text" name="title" value="${param.title }" />
-    <c:if test="${errors.title }">제목을 입력하세요.</c:if>
-  </p>
-  
-  <p>
-    내용 : <br />
-    <textarea name="content" id="" cols="30" rows="5">${param.content }</textarea>
-  </p>
-  <input type="submit" value="새 글 등록" />
-  <a href="${root }/article/list.do">[게시글목록보기]</a>
-</form>
+ <h1>게시물이 삭제 되었습니다.</h1>
+ <a href="${root }/article/list.do">[게시글목록보기]</a>
 </div>
 </body>
 </html>
+

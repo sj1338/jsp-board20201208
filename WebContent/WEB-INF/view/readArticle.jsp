@@ -2,6 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +51,18 @@
         <td></td>
       </tr>
     </table>
+    
+    <%-- 
+    로그인 한 경우만
+    댓글 폼 출력
+    
+    --%>
+    <u:replyForm articleNo="${articleData.article.number }"/>
+    <u:listReply /> 
+    <a href="${root }/reply/deleteAllReply.do">[덧글 전부 삭제]</a>
+    
+    <c:set var="articleNumber" value="${param.no }" scope="session" />
+    <c:set var="articlePageNumber" value="${param.pageNo }" scope="session" />
   </div>
 </body>
 </html>

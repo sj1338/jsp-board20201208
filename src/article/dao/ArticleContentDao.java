@@ -11,12 +11,15 @@ import jdbc.JdbcUtil;
 public class ArticleContentDao {
 	public int update(Connection conn, int no, String content) throws SQLException {
 		String sql = "UPDATE article_content "
-				+ "SET content=? WHERE article_no=?";
+				+ "SET content=? "
+				+ "WHERE article_no=?";
+		
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, content);
 			pstmt.setInt(2, no);
 			
 			int cnt = pstmt.executeUpdate();
+			
 			return cnt;
 		}
 	}
@@ -62,6 +65,16 @@ public class ArticleContentDao {
 			} else {
 				return null;
 			}
+		}
+	}
+
+	public void delete(Connection con, int no) throws SQLException {
+		String sql = "DELETE article_content WHERE article_no=?";
+		
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, no);
+			
+			pstmt.executeUpdate();
 		}
 	}
 }

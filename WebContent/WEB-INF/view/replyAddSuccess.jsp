@@ -10,24 +10,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<script>
+function myfunc() {
+	alert("뒤로갑니다");
+	history.back();
+	alert("뒤로 갔습니다.");
+}
+</script>
 </head>
 <body>
 <div class="container">
-<h1>게시글 쓰기</h1>
-<form action="write.do" method="post">
-  <p>
-    제목 : <br />
-    <input type="text" name="title" value="${param.title }" />
-    <c:if test="${errors.title }">제목을 입력하세요.</c:if>
-  </p>
-  
-  <p>
-    내용 : <br />
-    <textarea name="content" id="" cols="30" rows="5">${param.content }</textarea>
-  </p>
-  <input type="submit" value="새 글 등록" />
-  <a href="${root }/article/list.do">[게시글목록보기]</a>
-</form>
+  <h1>댓글이 등록되었습니다.</h1>
+  <a href="${root }/article/read.do?no=${param.no }&pageNo=${param.pageNo}">글 보기</a>
+  <br />
+  <a href="javascript:myfunc()" >Go Back</a>
 </div>
 </body>
 </html>
+
+
+
