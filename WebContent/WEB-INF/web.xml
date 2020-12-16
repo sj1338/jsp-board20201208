@@ -55,6 +55,14 @@
   	<url-pattern>/article/modify.do</url-pattern>
   	<url-pattern>/article/delete.do</url-pattern>
   	<url-pattern>/reply/add.do</url-pattern>
+  	<url-pattern>/reply/deleteAllReply.do</url-pattern>
   </filter-mapping>
-  
 </web-app>
+
+
+
+
+
+
+
+

@@ -9,7 +9,7 @@ import reply.dao.ReplyDao;
 public class ReplyDeleteAllService {
 	private ReplyDao dao = new ReplyDao();
 
-	public void add(String userId, int articleNo, String body) {
+	public void add() {
 		Connection conn = ConnectionProvider.getConnection();
 		
 		try {

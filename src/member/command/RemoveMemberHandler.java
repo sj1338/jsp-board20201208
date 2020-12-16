@@ -74,7 +74,7 @@ public class RemoveMemberHandler implements CommandHandler {
 			
 		} catch (InvalidPasswordException e) {
 			e.printStackTrace();
-			errors.put("password", true);
+			errors.put("invalidPassword", true);
 			return FORM_VIEW;
 		} catch (MemberNotFoundException e) {
 			res.sendError(HttpServletResponse.SC_BAD_REQUEST);

@@ -16,7 +16,7 @@
 <div class="container">
   <h1>게시글 수정</h1>
   <form action="modify.do" method="post">
-    <input type="text" hidden name="no" value="${modReq.articleNumber }" />
+    <input type="text" name="no" value="${modReq.articleNumber }" hidden >
     <p>
     번호 : <br />
     ${modReq.articleNumber }

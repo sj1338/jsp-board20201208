@@ -1,6 +1,7 @@
 package member.service;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import jdbc.ConnectionProvider;
 import jdbc.JdbcUtil;
@@ -26,8 +27,12 @@ public class ChangePasswordService {
 			member.changePassword(newPwd);
 			memberDao.update(conn, member);
 			conn.commit();
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			JdbcUtil.rollback(conn);
+			throw e;
+		} catch (SQLException e) {
+			JdbcUtil.rollback(conn);
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		} finally {
 			JdbcUtil.close(conn);

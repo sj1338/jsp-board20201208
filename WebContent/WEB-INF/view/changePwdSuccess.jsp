@@ -14,6 +14,7 @@
 <body>
 <div class="container">
   <h1>암호를 변경했습니다.</h1>
+  <a href="${root }/index.jsp">돌아가기</a>
 </div>
 </body>
 </html>

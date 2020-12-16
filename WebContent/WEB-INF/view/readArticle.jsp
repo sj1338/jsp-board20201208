@@ -32,7 +32,7 @@
         <td>제목</td>
         <td><c:out value="${articleData.article.title }"></c:out></td>
       </tr>
-      <tr>
+      <tr>	
         <td>내용</td>
         <td><u:pre value="${articleData.content.content }" /></td>
       </tr>

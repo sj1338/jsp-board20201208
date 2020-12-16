@@ -10,8 +10,6 @@ public class ReplyAddService {
 	private ReplyDao dao = new ReplyDao();
 
 	public void add(String userId, int articleNo, String body) {
-		
-		
 		Connection conn = ConnectionProvider.getConnection();
 		
 		try {
