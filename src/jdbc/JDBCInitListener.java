@@ -13,7 +13,10 @@ import javax.servlet.annotation.WebListener;
  *
  */
 @WebListener
-public class JDBCInitListener implements ServletContextListener {
+public class JDBCInitListener implements ServletContextListener { // 주메소드가 2개있음
+	// ini = 시작 옵션
+	// 그중 하나가 des = 종료코드
+
 
     /**
      * Default constructor. 
@@ -39,9 +42,9 @@ public class JDBCInitListener implements ServletContextListener {
     	String user = application.getInitParameter("jdbcUser");
     	String pw = application.getInitParameter("jdbcPassword");
     	
-//    	System.out.println(url);
-//    	System.out.println(user);
-//    	System.out.println(pw);
+    	System.out.println(url);
+    	System.out.println(user);
+    	System.out.println(pw);
     	
     	// 1. 클래스 로딩
     	try {
@@ -51,6 +54,7 @@ public class JDBCInitListener implements ServletContextListener {
 			}
     	
     	// 2. drivermanager에서 connection
+    	
     	// 3. close();
     	try (
     			Connection con = DriverManager.getConnection(url, user, pw);
@@ -60,7 +64,7 @@ public class JDBCInitListener implements ServletContextListener {
     		e.printStackTrace();
     	}
     	
-    	ConnectionProvider.setUrl(url);
+    	ConnectionProvider.setUrl(url); // 저기서 연결을 꺼내옴 알고있으라고 set해줌
     	ConnectionProvider.setUser(user);
     	ConnectionProvider.setPassword(pw);
     	
