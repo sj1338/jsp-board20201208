@@ -53,13 +53,6 @@ public class ArticlePage {
 		return endPage;
 	}
 	
-	public boolean hasArticles() {
-		return total > 0;
-	}
-	
-	public boolean hasNoArticles() {
-		return total == 0;
-	}
 }
 
 

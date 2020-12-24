@@ -35,7 +35,7 @@
 </style>
 </head>
 <body>
-  <u:navbar></u:navbar>
+  <u:navbar/>
 
   <div class="container">
     <div class="row">

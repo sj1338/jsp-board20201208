@@ -25,9 +25,3 @@ public class ListArticleHandler implements CommandHandler {
 		return "listArticle";
 	}
 }
-
-
-
-
-
-
