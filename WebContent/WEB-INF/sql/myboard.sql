@@ -9,6 +9,9 @@ SELECT * FROM member;
 DROP table member;
 DROP table article;
 
+SELECT ROWNUM, article_no, title FROM (SELECT * FROM article WHERE category= 'art' ORDER BY article_no DESC) WHERE ROWNUM <= 4;
+
+
 SELECT * FROM article;
 
 INSERT INTO article (category, writer_id, writer_name, title, content, regdate, moddate, read_cnt) VALUES ('sport', 'a', 'a', 'title', 'body', sysdate, sysdate, 0);
